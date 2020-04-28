@@ -1,0 +1,114 @@
+@import "~assets/scss/colors";
+
+.autocomplete-input {
+  display: inline-block;
+  position: relative;
+  height: 40px;
+  text-align: left;
+
+  .label {
+    font-weight: bold;
+    padding-left: 2px;
+    color: $persianBlue;
+    font-size: 14px;
+    margin-bottom: 3px;
+  }
+
+  input {
+    border: 1px solid $almostWhite;
+    border-radius: 4px;
+    padding: 4px 15px;
+    font-size: 15px;
+    background-color: $white;
+    color: $persianBlue;
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+    transition: all .2s ease-in-out;
+
+    &::placeholder {
+      color: $grey;
+    }
+
+    &:active, &:focus {
+      outline: none;
+      border-color: $persianBlue;
+    }
+  }
+
+  svg {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    color: $grey;
+    width: 20px;
+    height: 20px;
+
+    &.tap-to-clear {
+      cursor: pointer;
+      transition: all .2s ease-in-out;
+      width: 16px;
+      height: 16px;
+
+      &:hover {
+        color: $persianBlue;
+      }
+    }
+  }
+
+  .msg {
+    font-size: 10px;
+    margin-top: -5px;
+    color: $pink;
+  }
+
+  &.hasIcon {
+    input {
+      padding-right: 45px;
+    }
+  }
+
+  &.inline {
+    background: $pink;
+  }
+
+  &.label-inline {
+    position: relative;
+
+    .label {
+      display: flex;
+      position: absolute;
+      z-index: 100;
+      top: -8px;
+      left: 22px;
+      background: $white;
+      padding: 0 4px;
+      color: $persianBlue;
+      font-size: 9px;
+      line-height: 16px;
+      transition: all .2s ease-in-out;
+      font-weight: normal;
+
+      &.placeholder {
+        background-color: transparent;
+        top: 12px;
+        left: 15px;
+        color: $grey;
+        font-size: 15px;
+      }
+    }
+
+    input {
+      border-radius: 4px;
+      font-weight: normal;
+      color: $black;
+    }
+  }
+
+  &.error {
+    input {
+      border-color: $pink;
+    }
+  }
+}

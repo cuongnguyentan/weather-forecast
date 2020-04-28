@@ -1,0 +1,15 @@
+@import "~assets/scss/fonts";
+@import "~assets/scss/colors";
+
+body {
+  margin: 0;
+  font-family: Consolas, 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  max-width: 100vw;
+  overflow-x: hidden;
+  line-height: 24px;
+  font-size: 14px;
+  color: $black;
+}

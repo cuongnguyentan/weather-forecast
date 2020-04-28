@@ -1,0 +1,25 @@
+$fontPath: '~assets/fonts/';
+
+@font-face {
+  font-family: Consolas;
+  src: url($fontPath + 'consolas.ttf');
+}
+
+@font-face {
+  font-family: Consolas;
+  src: url($fontPath + 'consolasb.ttf');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Consolas;
+  src: url($fontPath + 'consolasi.ttf');
+  font-style: italic;
+}
+
+@font-face {
+  font-family: Consolas;
+  src: url($fontPath + 'consolasib.ttf');
+  font-style: italic;
+  font-weight: bold;
+}
