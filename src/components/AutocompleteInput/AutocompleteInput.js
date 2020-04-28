@@ -25,6 +25,7 @@ const AutocompleteInput = forwardRef(({
   value,
   tapToClear,
   bounce,
+  autocompleteItems
 }, ref) => {
   const inputRef = useRef(null);
   const labelRef = useRef(null);
@@ -81,6 +82,12 @@ const AutocompleteInput = forwardRef(({
     }
   }, [mode]);
 
+  useEffect(() => {
+    if (!autocompleteItems || !autocompleteItems.length) {
+      setValidateMessage('NOT_FOUND');
+    }
+  }, [autocompleteItems]);
+
   const handleClickLabel = () => {
     setFocus(true);
     inputRef.current.focus();
@@ -127,7 +134,11 @@ AutocompleteInput.propTypes = {
   name: PropTypes.string,
   tapToClear: PropTypes.bool,
   className: PropTypes.string,
-  bounce: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  bounce: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  autocompleteItems: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    value: PropTypes.string
+  }))
 };
 
 AutocompleteInput.defaultProps = {
@@ -141,7 +152,8 @@ AutocompleteInput.defaultProps = {
   name: '',
   tapToClear: false,
   className: '',
-  bounce: 0
+  bounce: 0,
+  autocompleteItems: []
 };
 
 export default AutocompleteInput;
