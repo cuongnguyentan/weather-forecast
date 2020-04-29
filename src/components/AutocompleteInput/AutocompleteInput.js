@@ -20,6 +20,7 @@ const AutocompleteInput = forwardRef(({
   name,
   placeholder,
   onInput,
+  onSelect,
   icon: Icon,
   mode,
   value,
@@ -34,6 +35,7 @@ const AutocompleteInput = forwardRef(({
   const [value_, setValue] = useState(value);
   const [isFocus, setFocus] = useState(false);
   const [placeholder_, setPlaceholder] = useState(placeholder);
+  const [showAutocomplete, setShowAutocomplete] = useState(false);
 
   const inputClass = classNames({
     disabled,
@@ -49,6 +51,16 @@ const AutocompleteInput = forwardRef(({
     label: true,
     placeholder: ((mode === MODES.LABEL_INLINE) && !value_ && !isFocus)
   });
+
+  const handleClickLabel = () => {
+    setFocus(true);
+    inputRef.current.focus();
+  };
+
+  const select = (val) => {
+    onSelect(val);
+    setShowAutocomplete(false);
+  };
 
   useEffect(() => {
     setValue(value);
@@ -85,13 +97,11 @@ const AutocompleteInput = forwardRef(({
   useEffect(() => {
     if (!autocompleteItems || !autocompleteItems.length) {
       setValidateMessage('NOT_FOUND');
+    } else {
+      setValidateMessage('');
+      setShowAutocomplete(true);
     }
   }, [autocompleteItems]);
-
-  const handleClickLabel = () => {
-    setFocus(true);
-    inputRef.current.focus();
-  };
 
   return (
     <div className={inputClass} ref={ref}>
@@ -119,6 +129,16 @@ const AutocompleteInput = forwardRef(({
       { tapToClear && <FontAwesomeIcon className="tap-to-clear" icon={faBackspace} onClick={() => setValue('')} /> }
 
       { !!validateMessage && <div className="msg">{validateMessage}</div> }
+
+      { showAutocomplete && !!autocompleteItems && !!autocompleteItems.length && (
+        <div className="autocomplete">
+          <ul>
+            { autocompleteItems.map((item) => (
+              <li key={item.value} onClick={() => select(item.value)}>{item.text}</li>
+            )) }
+          </ul>
+        </div>
+      ) }
     </div>
   );
 });
@@ -128,6 +148,7 @@ AutocompleteInput.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   onInput: PropTypes.func,
+  onSelect: PropTypes.func,
   icon: PropTypes.elementType,
   mode: PropTypes.string,
   value: PropTypes.string,
@@ -136,8 +157,8 @@ AutocompleteInput.propTypes = {
   className: PropTypes.string,
   bounce: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   autocompleteItems: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    value: PropTypes.string
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    text: PropTypes.string
   }))
 };
 
@@ -146,6 +167,7 @@ AutocompleteInput.defaultProps = {
   label: '',
   placeholder: '',
   onInput: () => {},
+  onSelect: () => {},
   icon: null,
   mode: 'text-input',
   value: '',
