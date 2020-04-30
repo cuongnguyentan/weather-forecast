@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Container, Row, Col } from 'react-bootstrap';
+import moment from 'moment';
 
 import AutocompleteInput from 'components/AutocompleteInput';
 import locationService from 'services/location';
@@ -14,6 +15,7 @@ function App() {
   const [query, setQuery] = useState('');
   const [cities, setCities] = useState([]);
   const [city, setCity] = useState(null);
+  const [forecasts, setForecasts] = useState([]);
 
   useEffect(() => {
     if (!query) return;
@@ -40,6 +42,30 @@ function App() {
     loadCities();
   }, [query]);
 
+  useEffect(() => {
+    if (!city) return;
+
+    const loadForecasts = async () => {
+      try {
+        const data = await locationService.forecast(city);
+
+        if (data && data.length) {
+          setForecasts(data);
+        } else {
+          setForecasts([]);
+        }
+      } catch(e) {
+        console.log(e);
+      }
+    };
+
+    loadForecasts();
+  }, [city]);
+
+  const cc = cities.find((c) => c.woeid === city);
+  console.log('>>>>>>>>>>>>>>>>>>>>', cc, city);
+  const cityName = cc ? cc.title : '';
+
   return (
     <div id="app">
       <Container>
@@ -57,15 +83,20 @@ function App() {
           onSelect={(c) => setCity(c)}
         />
 
-        { !!city && (
-          <Row className="forecast">
-            <Col xs={12} md={4}>
-              <div className="info">
-                <h4>Wednesday - 29 Apr, 2020</h4>
-                <p>placeholder</p>
-              </div>
-            </Col>
-          </Row>
+        { !!city && !!forecasts.length && (
+          <div className="forecast">
+            <h2>{ t('WEATHER_FORECAST_FOR_CITY', { city: cityName }) }</h2>
+            <Row>
+              { forecasts.map((forecast) => (
+                <Col xs={12} md={4} key={forecast.date} className="info-wrapper">
+                  <div className="info">
+                    <p>{ moment(forecast.date).format('ddd, DD MMM, YYYY') }</p>
+                    <h4>{`${forecast.min.toFixed(1)} - ${forecast.max.toFixed(1)} °C`}</h4>
+                  </div>
+                </Col>
+              )) }
+            </Row>
+          </div>
         ) }
       </Container>
     </div>

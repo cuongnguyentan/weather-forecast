@@ -1,6 +1,6 @@
 {
-  "name": "cuongxoi",
-  "description": "cuongxoi's portfolio",
+  "name": "weather-forecast",
+  "description": "Weather Forecast",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -36,6 +36,7 @@
     "jquery": "^3.5.0",
     "koa": "^2.11.0",
     "koa-router": "^8.0.8",
+    "moment": "^2.24.0",
     "node-sass": "^4.13.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",

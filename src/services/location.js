@@ -1,5 +1,5 @@
 import { API_ENDPOINTS } from 'consts';
-import { processRequest } from 'helpers';
+import { processRequest, applyParams } from 'helpers';
 
 export default {
   async search(term = '') {
@@ -15,5 +15,15 @@ export default {
     }
 
     return [];
+  },
+
+  async forecast(cityId) {
+    const ep = API_ENDPOINTS.GET_FORECAST;
+    const res = await processRequest({
+      ...ep,
+      url: applyParams(ep.url, cityId)
+    });
+
+    return res.data || {};
   }
 };

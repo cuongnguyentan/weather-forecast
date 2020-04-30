@@ -5,10 +5,41 @@
 
   h1 {
     margin-top: 50px;
+    text-transform: uppercase;
   }
 
   .autocomplete-input {
-
     width: 300px;
+  }
+
+  .forecast {
+    padding: 50px 0;
+
+    h2 {
+      margin-bottom: 30px;
+      text-align: left;
+    }
+
+    .info-wrapper {
+      .info {
+        background-color: $persianBlue;
+        border-radius: 4px;
+        padding: 30px 15px;
+        color: $white;
+        margin-bottom: 15px;
+
+        p {
+          margin: 0;
+        }
+      }
+
+      &:first-child {
+        .info {
+          background-color: $white;
+          border: 1px solid $persianBlue;
+          color: $persianBlue;
+        }
+      }
+    }
   }
 }
