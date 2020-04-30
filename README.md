@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## `Backend`
+## Backend
 
 ### `node server.js`
 Runs the backend for the app by starting the server.js node.<br />
