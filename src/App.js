@@ -5,7 +5,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Container, Row, Col } from 'react-bootstrap';
 import moment from 'moment';
 
-import AutocompleteInput from 'components/AutocompleteInput';
+import { AutocompleteInput, Loader } from 'components';
 import locationService from 'services/location';
 
 import './App.scss';
@@ -67,7 +67,7 @@ function App() {
     };
 
     loadForecasts();
-  }, [city, cities]);
+  }, [city]);
 
   useEffect(() => {
     if (!cities || !cities.length) return;
@@ -112,6 +112,8 @@ function App() {
           </div>
         ) }
       </Container>
+
+      <Loader />
     </div>
   );
 }

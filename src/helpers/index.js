@@ -18,6 +18,7 @@ export const processRequest = (ep, config) => {
   return apiHandler({
     method,
     url,
+    showLoader: true,
     ...config,
   });
 };
