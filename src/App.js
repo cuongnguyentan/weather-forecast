@@ -62,9 +62,8 @@ function App() {
     loadForecasts();
   }, [city]);
 
-  const cc = cities.find((c) => c.woeid === city);
-  console.log('>>>>>>>>>>>>>>>>>>>>', cc, city);
-  const cityName = cc ? cc.title : '';
+  const cc = cities.find((c) => c.value === city);
+  const cityName = cc ? cc.text : '';
 
   return (
     <div id="app">
@@ -85,7 +84,7 @@ function App() {
 
         { !!city && !!forecasts.length && (
           <div className="forecast">
-            <h2>{ t('WEATHER_FORECAST_FOR_CITY', { city: cityName }) }</h2>
+            <h2 dangerouslySetInnerHTML={{ __html: t('WEATHER_FORECAST_FOR_CITY', { city: cityName }) }} />
             <Row>
               { forecasts.map((forecast) => (
                 <Col xs={12} md={4} key={forecast.date} className="info-wrapper">

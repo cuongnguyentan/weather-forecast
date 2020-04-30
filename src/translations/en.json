@@ -1,2 +1,6 @@
 {
+  "WEATHER_FORECAST": "Weather forecast",
+  "WEATHER_FORECAST_FOR_CITY": "Weather forecast for <span>{{city}}</span>",
+  "SEARCH_FOR_CITY": "Search for city",
+  "NOT_FOUND": "No results match your query"
 }

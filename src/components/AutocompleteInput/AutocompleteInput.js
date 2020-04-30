@@ -1,6 +1,7 @@
 import React, { useState, useEffect, forwardRef, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBackspace } from '@fortawesome/free-solid-svg-icons';
@@ -28,6 +29,8 @@ const AutocompleteInput = forwardRef(({
   bounce,
   autocompleteItems
 }, ref) => {
+  const { t } = useTranslation();
+
   const inputRef = useRef(null);
   const labelRef = useRef(null);
 
@@ -128,7 +131,7 @@ const AutocompleteInput = forwardRef(({
       )}
       { tapToClear && <FontAwesomeIcon className="tap-to-clear" icon={faBackspace} onClick={() => setValue('')} /> }
 
-      { !!validateMessage && <div className="msg">{validateMessage}</div> }
+      { !!validateMessage && <div className="msg">{ t(validateMessage) }</div> }
 
       { showAutocomplete && !!autocompleteItems && !!autocompleteItems.length && (
         <div className="autocomplete">
