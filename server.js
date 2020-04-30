@@ -37,7 +37,7 @@ const forecast = async (ctx) => {
   const { id } = ctx.params;
 
   let next = moment();
-  const days = Array(6).fill(0).map((i) => {
+  const days = Array(6).fill(0).map(() => {
     const d = next.format('YYYY/MM/DD');
     next = next.add(1, 'days');
 

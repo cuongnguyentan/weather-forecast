@@ -1,5 +1,10 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## `Backend`
+
+### `node server.js`
+Runs the backend for the app by starting the server.js node.<br />
+
 ## Available Scripts
 
 In the project directory, you can run:

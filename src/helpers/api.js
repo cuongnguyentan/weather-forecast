@@ -7,7 +7,7 @@ import { store } from 'store';
 import { actions as loaderActions } from 'components/Loader';
 
 const axios = Axios.create({
-  baseURL: process.env.REACT_APP_API_ROOT,
+  baseURL: process.env.REACT_APP_API_ROOT || 'http://localhost:8000',
   headers: { 'Content-Type': 'application/json' }
 });
 

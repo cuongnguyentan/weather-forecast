@@ -13,7 +13,7 @@ const loaderReducer = (state = INIT_STATE, action) => {
       let v = val;
 
       if (id) {
-        const i = q.findIndex(j => j === id);
+        const i = q.findIndex((j) => j === id);
         if (i >= 0) {
           if (!val) {
             q.splice(i, 1);
