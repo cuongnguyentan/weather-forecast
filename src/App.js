@@ -15,10 +15,14 @@ function App() {
   const [query, setQuery] = useState('');
   const [cities, setCities] = useState([]);
   const [city, setCity] = useState(null);
+  const [cityName, setCityName] = useState('');
   const [forecasts, setForecasts] = useState([]);
 
   useEffect(() => {
-    if (!query) return;
+    if (!query) {
+      setCities([]);
+      return;
+    }
 
     const loadCities = async () => {
       try {
@@ -43,7 +47,10 @@ function App() {
   }, [query]);
 
   useEffect(() => {
-    if (!city) return;
+    if (!city) {
+      setForecasts([]);
+      return;
+    }
 
     const loadForecasts = async () => {
       try {
@@ -60,10 +67,17 @@ function App() {
     };
 
     loadForecasts();
-  }, [city]);
+  }, [city, cities]);
 
-  const cc = cities.find((c) => c.value === city);
-  const cityName = cc ? cc.text : '';
+  useEffect(() => {
+    if (!cities || !cities.length) return;
+    if (!city) {
+      setCityName('');
+    }
+
+    const cc = cities.find((c) => c.value === city);
+    setCityName(cc ? cc.text : '');
+  }, [city, cities]);
 
   return (
     <div id="app">

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBackspace } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import './AutocompleteInput.scss';
 
@@ -37,6 +37,7 @@ const AutocompleteInput = forwardRef(({
   const [validateMessage, setValidateMessage] = useState('');
   const [value_, setValue] = useState(value);
   const [isFocus, setFocus] = useState(false);
+  const [clearing, setClearing] = useState(false);
   const [placeholder_, setPlaceholder] = useState(placeholder);
   const [showAutocomplete, setShowAutocomplete] = useState(false);
 
@@ -65,6 +66,11 @@ const AutocompleteInput = forwardRef(({
     setShowAutocomplete(false);
   };
 
+  const clear = () => {
+    setClearing(true);
+    setValue('');
+  };
+
   useEffect(() => {
     setValue(value);
   }, [value]);
@@ -74,7 +80,7 @@ const AutocompleteInput = forwardRef(({
       onInput(value_);
     };
 
-    if (bounce) {
+    if (bounce && !clearing) {
       if (bounceTimeout) {
         clearTimeout(bounceTimeout);
       }
@@ -83,7 +89,9 @@ const AutocompleteInput = forwardRef(({
     } else {
       f();
     }
-  }, [value_, onInput, bounce]);
+
+    setClearing(false);
+  }, [value_, onInput, bounce, clearing]);
 
   useEffect(() => {
     if (mode !== MODES.LABEL_INLINE) {
@@ -105,6 +113,12 @@ const AutocompleteInput = forwardRef(({
       setShowAutocomplete(true);
     }
   }, [autocompleteItems]);
+
+  useEffect(() => {
+    if (isFocus && autocompleteItems && autocompleteItems.length) {
+      setShowAutocomplete(true);
+    }
+  }, [isFocus, autocompleteItems]);
 
   return (
     <div className={inputClass} ref={ref}>
@@ -129,7 +143,7 @@ const AutocompleteInput = forwardRef(({
       { !!Icon && !tapToClear && (
         <Icon />
       )}
-      { tapToClear && <FontAwesomeIcon className="tap-to-clear" icon={faBackspace} onClick={() => setValue('')} /> }
+      { tapToClear && <FontAwesomeIcon className="tap-to-clear" icon={faTimes} onClick={() => clear()} /> }
 
       { !!validateMessage && <div className="msg">{ t(validateMessage) }</div> }
 
