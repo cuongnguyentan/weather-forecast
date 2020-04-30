@@ -109,6 +109,12 @@ function App() {
                 </Col>
               )) }
             </Row>
+
+            <p>
+              This forecast data is using APIs provided by
+              &nbsp;
+              <a href="https://www.metaweather.com/api/" rel="noopener noreferrer" target="_blank">metaweather.com</a>
+            </p>
           </div>
         ) }
       </Container>
